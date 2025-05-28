@@ -3,8 +3,6 @@ import { db, doc, setDoc } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import moment from "moment";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import './DataSubmission.css';
 import ToastHandler from "./components/common/ToastHandler";
@@ -162,13 +160,15 @@ const DataSubmission = ({ shopName }) => {
 
           <div className="input-container">
             <label htmlFor="date">Date</label>
-            <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
-              dateFormat="dd/MM/yyyy"
-              className="date-picker"
+            <input
+              type="date"
+              id="date"
+              className="inputbox"
+              value={moment(selectedDate).format("YYYY-MM-DD")}
+              onChange={(e) => handleDateChange(new Date(e.target.value))}
             />
           </div>
+
 
           <div className="input-container">
             <label htmlFor="upi">UPI</label>
