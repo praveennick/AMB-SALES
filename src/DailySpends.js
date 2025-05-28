@@ -11,8 +11,6 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import moment from "moment";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import StackedColumn from "./components/charts/StackedColumn";
 import { FaTrash, FaEdit, FaCheck, FaTimes } from "react-icons/fa";
 import LoadingSpinner from "./components/common/LoadingSpinner/LoadingSpinner";
@@ -209,16 +207,11 @@ const DailySpends = () => {
             fontWeight: "bold",
         },
         form: {
-            display: "flex",
-            gap: 8,
-            flexWrap: "wrap",
-            alignItems: "center",
             background: "#f9f9f9",
             borderRadius: 12,
             padding: "13px 12px 10px",
             boxShadow: "0 1px 6px rgba(52,73,94,0.09)",
             marginBottom: 20,
-            justifyContent: "center",
         },
         input: {
             padding: "10px 11px",
@@ -231,6 +224,8 @@ const DailySpends = () => {
             background: "#f3f4f6",
             flex: "1 0 120px",
             boxSizing: "border-box",
+            marginBottom: 10,
+            width: "100%",
         },
         addBtn: {
             padding: "10px 24px",
@@ -338,13 +333,13 @@ const DailySpends = () => {
         <div style={mobileStyles.container}>
             <div style={mobileStyles.header}>Daily Spends</div>
             <form onSubmit={handleSubmit} style={mobileStyles.form}>
-                <DatePicker
-                    selected={selectedDate}
-                    onChange={setSelectedDate}
-                    dateFormat="dd-MM-yyyy"
-                    popperPlacement="auto"
-                    wrapperClassName={mobileStyles.input}
+                <input
+                    type="date"
+                    value={moment(selectedDate).format("YYYY-MM-DD")}
+                    onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                    style={mobileStyles.input}
                 />
+
                 <input
                     type="text"
                     placeholder="Title (e.g., Sugar, Milk)"
