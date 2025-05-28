@@ -496,38 +496,36 @@ const Dashboard = () => {
     <>
       <div className="app-title">Dashboard</div>
       {/* Dropdown for selecting report type */}
-      <div className="report-type-dropdown">
-        <label htmlFor="reportType">Select Report: </label>
-        <select
-          id="reportType"
-          value={reportType}
-          onChange={(e) => setReportType(e.target.value)}
-          className="dropdown-select"
-        >
-          <option value="Last 7 days">Last 7 days</option>
-          <option value="This month">This month</option>
-          {/* <option value="All time">All time</option> */}
-        </select>
+      <div className="report-container">
+        <div className="report-dropdown">
+          <label className="report-label">Select Report</label>
+          <select
+            value={reportType}
+            onChange={(e) => setReportType(e.target.value)}
+            className="report-select"
+          >
+            <option value="Last 7 days">Last 7 days</option>
+            <option value="This month">This month</option>
+          </select>
+        </div>
+        <div className="report-dates">
+
+          <input
+            type="date"
+            value={startDate.format("YYYY-MM-DD")}
+            onChange={(e) => setStartDate(moment(e.target.value))}
+            className="report-date"
+          />
+
+          <input
+            type="date"
+            value={endDate.format("YYYY-MM-DD")}
+            onChange={(e) => setEndDate(moment(e.target.value))}
+            className="report-date"
+          />
+        </div>
       </div>
-      <div className="date-picker-container">
-        <DateRangePicker
-          startDate={startDate}
-          startDateId="startDate"
-          endDate={endDate}
-          endDateId="endDate"
-          onDatesChange={({ startDate, endDate }) => {
-            setStartDate(startDate);
-            setEndDate(endDate);
-          }}
-          focusedInput={focusedInput}
-          onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
-          isOutsideRange={() => false}
-          displayFormat="DD MMM YYYY"
-          numberOfMonths={1}
-          hideKeyboardShortcutsPanel
-          firstDayOfWeek={1}
-        />
-      </div>
+
       {data.length > 0 && (
         <div className="button-container">
           <button className="button" onClick={downloadReport}>
